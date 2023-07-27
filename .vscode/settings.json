@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "library-fa22/javalib/stdlib.jar",
+        "library-fa22/javalib/stdlib-package.jar"
+    ]
+}
