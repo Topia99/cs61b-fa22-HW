@@ -2,5 +2,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "library-fa22-main/**/*.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
