@@ -27,12 +27,12 @@ public class TestArrayDeque {
 
     @Test
     /**
-     * Create two ArrayDeque
+     * Create two ArrayDeque with different type
      * Add a few items to each deque using add last. Checking it with size()
      *
      */
-
      public void addLastTest() {
+        ArrayDeque<Integer> intL = new ArrayDeque<Integer>();
         
      }
 }
