@@ -20,11 +20,17 @@ public class ArrayDeque<T> {
         tail = 0;
     }
 
-    /** Resizes the array to size x */
-    public void resize(int x){
-        // Create a new array with size x
-        T[] a = (T[]) new Object[x];
+    /** Return true if list is empty, false otherwise. */
+    public boolean isEmpty(){
+        if(size == 0){
+            return true;
+        }
 
+        return false;
+    }
+
+    /** Copy everything from array A to array B */
+    private void ArrayCopy(T[] A, T[] B){
         /** Copy from 0 if head is at position 0. Otherwise, 
          * Copy items By two sections. First section copy from head 
          * to Length - 1. Second section copy from 0 to head -1.
@@ -37,8 +43,40 @@ public class ArrayDeque<T> {
             System.arraycopy(items, head, a, 0, ItemsBefore);
             System.arraycopy(items, 0, a, ItemsBefore, head);
         }
+    }
 
-        // Reassign a as items
+    /** Resizes the array to size x */
+    private void resize(int x){
+        // Create a new array with size x
+        T[] a = (T[]) new Object[x];
+
+        // Copy everything from array items to array a
+        ArrayCopy(items, a);
+
+
+        // Correct head and tail
+        head = 0;
+        tail = size;
+
+        // Reassign reference of items to a
+        items = a;
+    }
+
+    /** Halve the  Array capacity. */
+    private void halve() {
+        int newSize = (int) items.length / 2;
+
+        // Create a new array of newSize
+        T[] a = (T[]) new Object[newSize];
+
+        // Copy everything from array items to array a
+        ArrayCopy(items, a);
+
+        // Correct head and tail
+        head = 0;
+        tail = size;
+
+        // Reassign referenceof items to a
         items = a;
     }
 
@@ -101,8 +139,38 @@ public class ArrayDeque<T> {
 
             return items[index];
         }
-
-        return null;
+            
+                    return null;
     }
+            
+    /** Removes the item at the front of the list and Returns that item. 
+     * If the list is empty. Return null.
+    */
+    public T removeFirst(){
+        if (isEmpty()){
+            return null;
+        }
+
+        T first = items[head];
+        items[head] = null; // Free memory
+
+        if (head == items.length -1){
+            head = 0;
+        } else {
+            head += 1;
+        }
+
+        size -= 1;
+
+        // Halve array size if usage ratio is less than 0.25
+        double R = (double) size / items.length;
+        if (R < 0.25){
+            halve();
+        }
+        
+        return first;
+    }
+
+
 
 }
