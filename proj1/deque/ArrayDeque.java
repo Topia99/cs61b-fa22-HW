@@ -20,6 +20,22 @@ public class ArrayDeque<T> {
         tail = 0;
     }
 
+    /** Create an deep copy of other */
+    public ArrayDeque(ArrayDeque<T> other){
+        size = other.size();
+        T[] items = (T[]) new Object[size];
+
+        int i=0;
+        while (i < size){
+            items[i] = other.get(i);
+            i += 1;
+        }
+
+        // Set head and tail
+        head = 0;
+        tail = size;
+    }
+
     /** Return true if list is empty, false otherwise. */
     public boolean isEmpty(){
         if(size == 0){
