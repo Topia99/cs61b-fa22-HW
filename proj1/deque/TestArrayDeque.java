@@ -83,7 +83,10 @@ public class TestArrayDeque {
         assertEquals(344, (int)l1.get(344));
 
         // The last item should be 1000000
-        assertEquals(1000000, (int)(l1.get(-1)));
+        assertEquals(999999, (int)(l1.get(-2)));
+
+        // Test get that input exceeds size
+        assertEquals(null, l1.get(-1000000000));
     }
         
     @Test

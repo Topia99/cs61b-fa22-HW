@@ -64,8 +64,7 @@ public class ArrayDeque<T> {
                 System.arraycopy(A, head, B, 0, itemsBefore);
 
                 /** Copy the rest of the items, from 0 to tail -1 */
-                System.arraycopy(A, 0, B, itemsBefore-1, tail);
-
+                System.arraycopy(A, 0, B, itemsBefore, tail);
             }
         }
     }
@@ -111,6 +110,9 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
 
+        if(tail == items.length){
+            tail = 0;
+        } 
         items[tail] = x;
         tail += 1;
 
@@ -156,7 +158,7 @@ public class ArrayDeque<T> {
             }
             return items[index];
         }
-        else if (i < 0 && -i <= size){
+        else if (i < 0 && i * -1 < size){
             int index = tail + i;
             if(index < 0){
                 index = items.length + index;
@@ -165,7 +167,7 @@ public class ArrayDeque<T> {
             return items[index];
         }
             
-                    return null;
+        return null;
     }
             
     /** Removes item at the front of the list and Returns that item. 
