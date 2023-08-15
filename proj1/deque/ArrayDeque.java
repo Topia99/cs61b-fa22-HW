@@ -31,17 +31,26 @@ public class ArrayDeque<T> {
 
     /** Copy everything from array A to array B */
     private void ArrayCopy(T[] A, T[] B){
-        /** Copy from 0 if head is at position 0. Otherwise, 
-         * Copy items By two sections. First section copy from head 
-         * to Length - 1. Second section copy from 0 to head -1.
+        /** 
+         * The head of the ArrayDeque can be at the end of the list.
+         * If head is at 0, just copy the whole array at once.
+         * Else, Copy from head to array.length first 
          */
         if (head == 0){
-            System.arraycopy(items, 0, a, 0, size);
+            System.arraycopy(A, 0, B, 0, size);
         } 
         else {
-            int ItemsBefore = size - head; 
-            System.arraycopy(items, head, a, 0, ItemsBefore);
-            System.arraycopy(items, 0, a, ItemsBefore, head);
+            if(head + size < A.length){
+                System.arraycopy(A, head, B, 0, size);
+            } else {
+                /** Copy first part of the array, from head to array.length */
+                int itemsBefore = A.length - head;
+                System.arraycopy(A, head, B, 0, itemsBefore);
+
+                /** Copy the rest of the items, from 0 to tail -1 */
+                System.arraycopy(A, 0, B, itemsBefore-1, tail);
+
+            }
         }
     }
 
@@ -171,6 +180,9 @@ public class ArrayDeque<T> {
         return first;
     }
 
-
+    /** Returns the length of items. Just for testing purpose */
+    public int arrayLength(){
+        return items.length;
+    }
 
 }

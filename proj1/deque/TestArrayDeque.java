@@ -110,4 +110,43 @@ public class TestArrayDeque {
         assertEquals(" Call removeFirst the thrid time should return 3 ", 3, (int) l1.removeFirst());
     }
 
+    @Test
+    /** Create a ArrayDeque.
+     * The original arrayLength should be 8.
+     * 
+     * Add 8 items to the Deque.
+     * The arrayLength should be 8 * 2 = 16.
+     * 
+     * Remove 5 items and left with 3 items in the Deque.
+     * The array should halve its length and arrayLength should return 8.
+     */
+    public void TestResizeHalve() {
+        ArrayDeque<Integer> l1 = new ArrayDeque<Integer>();
+
+        // Add 9 items to l1
+        for (int i=9; i>0; i--){
+            l1.addFirst(i);
+        }
+
+        // Test size() should be 9
+        assertEquals(9, l1.size());
+
+        // Test arrayLength(), should be 16
+        assertEquals(16, l1.arrayLength());
+
+        // RemoveFirst for 5 time
+        int result;
+        for (int i=0; i< 5; i++){
+            l1.removeFirst();
+        }
+        result = l1.removeFirst();
+
+        assertEquals( "Should be 6" ,6, result); 
+
+        // Check size()
+        assertEquals(" Size should be 3 ", 3, l1.size());
+
+        // Check whether halve method operate
+        assertEquals(" Size of the array should reduce to 8 if there only 3 items in the list", 8, l1.arrayLength());
+    }
 }
