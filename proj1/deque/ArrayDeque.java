@@ -152,7 +152,7 @@ public class ArrayDeque<T> {
                     return null;
     }
             
-    /** Removes the item at the front of the list and Returns that item. 
+    /** Removes item at the front of the list and Returns that item. 
      * If the list is empty. Return null.
     */
     public T removeFirst(){
@@ -179,10 +179,38 @@ public class ArrayDeque<T> {
         
         return first;
     }
+        
+    /** 
+    * Removes item at the end of the list and returns that item.
+    * If item doesn't exist, return null.
+    */
+    public T removeLast(){
+        if(isEmpty()){
+            return null;
+        }
+        
+        if(tail == 0){
+            tail = items.length -1;
+        } else {
+            tail -= 1;
+        }
 
-    /** Returns the length of items. Just for testing purpose */
-    public int arrayLength(){
-        return items.length;
+        // Get last items of ArrayDeque
+        T last = items[tail];
+
+        // Free last items momery
+        items[tail] = null;
+
+
+        size -= 1;
+
+        // Halve array size if usage ratio is less than 0.25
+        double R = (double) size / items.length;
+        if (R < 0.25){
+            halve();
+        }
+        
+        return last;
     }
 
 }

@@ -149,4 +149,36 @@ public class TestArrayDeque {
         // Check whether halve method operate
         assertEquals(" Size of the array should reduce to 8 if there only 3 items in the list", 8, l1.arrayLength());
     }
+
+    @Test
+    /**
+     * Create an arrayDeque and insert some items in it.
+     * Remove two items from the front and two items from the last
+     * Check all returns values.
+     */
+    public void TestRemoveLast() {
+        ArrayDeque<String> l1 = new ArrayDeque<String>();
+
+        l1.addLast("Alpha");
+        l1.addLast("Beta");
+        l1.addLast("Charlie");
+        l1.addLast("Dog");
+
+        l1.addFirst("a");
+
+
+        assertEquals(" Call removeFirst should return a ", "a", l1.removeFirst());
+        assertEquals("Call RemoveFirst should return Alpha", "Alpha", l1.removeFirst());
+        assertEquals("Call removeLast should return Dog", "Dog", l1.removeLast());
+        assertEquals("Call removeLast should return Charlie", "Charlie", l1.removeLast());
+    }
+
+    @Test
+    /** Check empty remove. Should return null. */
+    public void TestEmptyRemove() {
+        ArrayDeque<Integer> l1 = new ArrayDeque<Integer>();
+
+        assertEquals(null, l1.removeFirst());
+        assertEquals(null, l1.removeLast());
+    }
 }
