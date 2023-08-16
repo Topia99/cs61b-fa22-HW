@@ -193,7 +193,16 @@ public class LinkedListDeque <T> {
         return null;
     }
 
-    
+    /** Returns whether or not the parameter o is equal to the deque.
+     * o is considered equal if it is a deque and if it contains the
+     * saame contents in the same order.
+     */
+    public boolean equals(Object o){
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        }
+        
+    }
 }
     
 

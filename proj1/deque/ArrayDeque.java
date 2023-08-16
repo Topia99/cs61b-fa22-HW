@@ -20,25 +20,87 @@ public class ArrayDeque<T> {
         tail = 0;
     }
 
+    /** Create an deep copy of other */
+    public ArrayDeque(ArrayDeque<T> other){
+        size = other.size();
+        T[] items = (T[]) new Object[size];
+
+        int i=0;
+        while (i < size){
+            items[i] = other.get(i);
+            i += 1;
+        }
+
+        // Set head and tail
+        head = 0;
+        tail = size;
+    }
+
+    /** Return true if list is empty, false otherwise. */
+    public boolean isEmpty(){
+        if(size == 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    /** Copy everything from array A to array B */
+    private void ArrayCopy(T[] A, T[] B){
+        /** 
+         * The head of the ArrayDeque can be at the end of the list.
+         * If head is at 0, just copy the whole array at once.
+         * Else, Copy from head to array.length first 
+         */
+        if (head == 0){
+            System.arraycopy(A, 0, B, 0, size);
+        } 
+        else {
+            if(head + size < A.length){
+                System.arraycopy(A, head, B, 0, size);
+            } else {
+                /** Copy first part of the array, from head to array.length */
+                int itemsBefore = A.length - head;
+                System.arraycopy(A, head, B, 0, itemsBefore);
+
+                /** Copy the rest of the items, from 0 to tail -1 */
+                System.arraycopy(A, 0, B, itemsBefore, tail);
+            }
+        }
+    }
+
     /** Resizes the array to size x */
-    public void resize(int x){
+    private void resize(int x){
         // Create a new array with size x
         T[] a = (T[]) new Object[x];
 
-        /** Copy from 0 if head is at position 0. Otherwise, 
-         * Copy items By two sections. First section copy from head 
-         * to Length - 1. Second section copy from 0 to head -1.
-         */
-        if (head == 0){
-            System.arraycopy(items, 0, a, 0, size);
-        } 
-        else {
-            int ItemsBefore = size - head; 
-            System.arraycopy(items, head, a, 0, ItemsBefore);
-            System.arraycopy(items, 0, a, ItemsBefore, head);
-        }
+        // Copy everything from array items to array a
+        ArrayCopy(items, a);
 
-        // Reassign a as items
+
+        // Correct head and tail
+        head = 0;
+        tail = size;
+
+        // Reassign reference of items to a
+        items = a;
+    }
+
+    /** Halve the  Array capacity. */
+    private void halve() {
+        int newSize = (int) items.length / 2;
+
+        // Create a new array of newSize
+        T[] a = (T[]) new Object[newSize];
+
+        // Copy everything from array items to array a
+        ArrayCopy(items, a);
+
+        // Correct head and tail
+        head = 0;
+        tail = size;
+
+        // Reassign referenceof items to a
         items = a;
     }
 
@@ -48,6 +110,9 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
 
+        if(tail == items.length){
+            tail = 0;
+        } 
         items[tail] = x;
         tail += 1;
 
@@ -93,7 +158,7 @@ public class ArrayDeque<T> {
             }
             return items[index];
         }
-        else if (i < 0 && -i <= size){
+        else if (i < 0 && i * -1 < size){
             int index = tail + i;
             if(index < 0){
                 index = items.length + index;
@@ -101,10 +166,69 @@ public class ArrayDeque<T> {
 
             return items[index];
         }
-
+            
         return null;
     }
-    
+            
+    /** Removes item at the front of the list and Returns that item. 
+     * If the list is empty. Return null.
+    */
+    public T removeFirst(){
+        if (isEmpty()){
+            return null;
+        }
 
+        T first = items[head];
+        items[head] = null; // Free memory
+
+        if (head == items.length -1){
+            head = 0;
+        } else {
+            head += 1;
+        }
+
+        size -= 1;
+
+        // Halve array size if usage ratio is less than 0.25
+        double R = (double) size / items.length;
+        if (R < 0.25){
+            halve();
+        }
+        
+        return first;
+    }
+        
+    /** 
+    * Removes item at the end of the list and returns that item.
+    * If item doesn't exist, return null.
+    */
+    public T removeLast(){
+        if(isEmpty()){
+            return null;
+        }
+        
+        if(tail == 0){
+            tail = items.length -1;
+        } else {
+            tail -= 1;
+        }
+
+        // Get last items of ArrayDeque
+        T last = items[tail];
+
+        // Free last items momery
+        items[tail] = null;
+
+
+        size -= 1;
+
+        // Halve array size if usage ratio is less than 0.25
+        double R = (double) size / items.length;
+        if (R < 0.25){
+            halve();
+        }
+        
+        return last;
+    }
 
 }
