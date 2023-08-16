@@ -201,7 +201,19 @@ public class LinkedListDeque <T> {
         if (!(o instanceof LinkedListDeque)) {
             return false;
         }
-        
+        LinkedListDeque other = (LinkedListDeque) o;
+        // Return false if two Dequq do not have the same size.
+        if (size != other.size()){
+            return false;
+        }
+
+        for (int i=0; i<size; i++){
+            if(this.get(i) != other.get(i)){
+                return false;
+            }
+        }
+
+        return true;
     }
 }
     
