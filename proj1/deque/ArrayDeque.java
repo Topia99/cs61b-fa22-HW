@@ -256,5 +256,28 @@ public class ArrayDeque<T> {
         // NewLine
         System.out.println();
     }
+
+    /**
+     * Returns wether or not the parameter o is equals to the deque.
+     * o is considered equqals if it is a deque and if it contain the
+     * same items in order. 
+     */
+    public boolean equals(Object o){
+        if (!(o instanceof ArrayDeque)){
+            return false;
+        }
+        ArrayDeque other = (ArrayDeque) o;
+        if (size != other.size()){
+            return false;
+        }
+
+        for (int i=0; i<size; i++){
+            if(get(i) != other.get(i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
     
 }

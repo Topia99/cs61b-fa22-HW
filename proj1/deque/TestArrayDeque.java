@@ -184,4 +184,55 @@ public class TestArrayDeque {
         assertEquals(null, l1.removeFirst());
         assertEquals(null, l1.removeLast());
     }
+
+    @Test
+    /** Testing printDeque */
+    public void testPrintDeque() {
+        ArrayDeque<Integer> l1 = new ArrayDeque<Integer>();
+
+        for(int i=0; i<5; i++){
+            l1.addFirst(i);
+        }
+
+        l1.printDeque();
+
+        ArrayDeque<String> l2 = new ArrayDeque<String>();
+
+        l2.addLast("Alpha");
+        l2.addLast("Beta");
+        l2.addLast("Charlie");
+        l2.addLast("Dog");
+
+        l2.printDeque();
+
+    }
+
+    @Test
+    /** Testing equals() */
+    public void testEquals(){
+        ArrayDeque<Integer> l1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> l2 = new ArrayDeque<Integer>();
+
+
+        for (int i=0; i<10; i++){
+            l1.addLast(i);
+            l2.addLast(i);
+        }
+
+        assertTrue(l1.equals(l2));
+
+        // check equals with a ArrayDeque of different type
+        ArrayDeque<String> l3 = new ArrayDeque<String>();
+        l3.addFirst("abc");
+
+        assertFalse(l1.equals(l3));
+
+
+        // Check equals with a same type but different items
+        ArrayDeque<Integer> l4 = new ArrayDeque<Integer>();
+        l4.addFirst(3);
+        l4.addLast(4);
+
+        assertFalse(l1.equals(l4));
+    }
 }
