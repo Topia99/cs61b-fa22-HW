@@ -230,5 +230,31 @@ public class ArrayDeque<T> {
         
         return last;
     }
+    
+    /** 
+    * Prints all items in ArrayDeque. Items are seperated by space.
+    * Print a newLine when all items are printed.
+    */
+    public void printDeque(){
+        int currentIndex = head;
+        int i=0;
+        while (i<size){
+            // If currentIndex reach the max length of items, go to 0
+            if(currentIndex == items.length){
+                currentIndex = 0;
+            }
 
+            // Print the currentIndex item
+            System.out.print(items[currentIndex] + " ");
+            
+            // move currentIndex to the next index
+            currentIndex += 1;
+
+            // Increment i by 1
+            i += 1;
+        }
+        // NewLine
+        System.out.println();
+    }
+    
 }
