@@ -278,6 +278,5 @@ public class ArrayDeque<T> {
         }
 
         return true;
-    }
     
 }
